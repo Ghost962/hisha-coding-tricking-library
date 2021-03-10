@@ -37,7 +37,6 @@ namespace TrickingLibrary.Api.Controllers
             {
                 await video.CopyToAsync(fileStream);
             }
-
             return Ok(fileName);
         }
     }
