@@ -1,6 +1,11 @@
 ﻿<template>
   <div>
     <v-dialog :value="active" persistent>
+      <template v-slot:activator="{ on }">
+        <v-btn depressed @click="toggleActivity">
+          Upload
+        </v-btn>
+      </template>
       <v-stepper v-model="step">
         <v-stepper-header>
           <v-stepper-step :complete="step > 1" step="1">Select Type</v-stepper-step>
