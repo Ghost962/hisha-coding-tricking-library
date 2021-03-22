@@ -1,8 +1,7 @@
-﻿namespace TrickingLibrary.Api.Models
+﻿namespace TrickingLibrary.Models
 {
-    public class Trick
+    public class Trick : BaseModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

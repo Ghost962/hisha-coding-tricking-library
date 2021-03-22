@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TrickingLibrary.Api.Models;
+using TrickingLibrary.Models;
 
 namespace TrickingLibrary.Data
 {

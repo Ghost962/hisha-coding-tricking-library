@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TrickingLibrary.Api.Models;
 using TrickingLibrary.Data;
+using TrickingLibrary.Models;
 
 namespace TrickingLibrary.Api.Controllers
 {
@@ -19,19 +19,16 @@ namespace TrickingLibrary.Api.Controllers
             _ctx = ctx;
         }
 
-        // /api/tricks
         [HttpGet]
         public IEnumerable<Trick> All() => _ctx.Tricks.ToList();
 
-        // /api/tricks/{id}
         [HttpGet("{id}")]
         public Trick Get(int id) => _ctx.Tricks.FirstOrDefault(x => x.Id.Equals(id));
 
-        [HttpGet("{trickId}")]
-        public IEnumerable<Submission> GetSub(int trickId) =>
+        [HttpGet("{trickId}/submissions")]
+        public IEnumerable<Submission> ListSubmissionsForTrick(int trickId) =>
             _ctx.Submissions.Where(x => x.TrickId.Equals(trickId)).ToList();
 
-        // /api/tricks
         [HttpPost]
         public async Task<Trick> Create([FromBody] Trick trick)
         {
@@ -40,7 +37,6 @@ namespace TrickingLibrary.Api.Controllers
             return trick;
         }
 
-        // /api/tricks
         [HttpPut]
         public async Task<Trick> Update([FromBody] Trick trick)
         {
@@ -54,11 +50,13 @@ namespace TrickingLibrary.Api.Controllers
             return trick;
         }
 
-        // /api/tricks/{id}
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            var trick = _ctx.Tricks.FirstOrDefault(x => x.Id.Equals(id));
+            trick.Deleted = true;
+            await _ctx.SaveChangesAsync();
+            return Ok();
         }
     }
 }
