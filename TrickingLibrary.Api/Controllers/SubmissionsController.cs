@@ -25,7 +25,6 @@ namespace TrickingLibrary.Api.Controllers
         [HttpGet("{id}")]
         public Submission Get(int id) => _ctx.Submissions.FirstOrDefault(x => x.Id.Equals(id));
 
-
         [HttpPost]
         public async Task<Submission> Create([FromBody] Submission submission)
         {
@@ -55,7 +54,6 @@ namespace TrickingLibrary.Api.Controllers
             {
                 return NotFound();
             }
-
             submission.Deleted = true;
             await _ctx.SaveChangesAsync();
             return Ok();
